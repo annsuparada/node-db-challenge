@@ -4,8 +4,8 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     db.getProjects()
-        .then(project => {
-            res.status(200).json(project)
+        .then(response => {
+            res.status(200).json(response.map(project => project.completed === 0 ? {...project, completed: false} : {...project, completed: true}))
         })
         .catch(err => {
             console.log(err)
